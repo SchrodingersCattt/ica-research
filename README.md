@@ -61,6 +61,8 @@ Fine-tuning configuration is documented but its launcher is intentionally site-n
 
 `docs/software_versions.md` lists the versions supported by evidence in the source logs. CP2K is referenced rather than compiled; the manuscript's CP2K version discrepancy is called out there for final confirmation. Multiwfn and VMD/Tachyon are referenced only and are not redistributed.
 
+The exact public-client capability record is in `docs/aissq-explorer.md`; the authenticated AIS Square upload sequence and artifact record are in `docs/aissquare-upload-api.md`.
+
 ## License
 
 Original scripts in this bundle are released under the MIT License. Third-party programs, libraries, model weights, and data remain under their own licenses; see `THIRD_PARTY_NOTICES.md`.

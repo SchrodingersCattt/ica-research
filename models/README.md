@@ -6,13 +6,12 @@ Before public release, publish one frozen inference artifact through the approve
 
 ```text
 artifact_name: dpa3-frozen
-artifact_url: PENDING_REVIEW
+artifact_url: https://store.aissquare.com/models/8070570f-2710-4a54-95ec-16736ca610a8/dpa3.pth
 sha256: 39755352b3ddbeaccf6d0e2b95aa9030f7616b2c11d0fda10e31c213068fea5e
 intended_use: phonon and elastic inference
+ais_square_model_id: 444
 ```
 
-The referenced `aissq-explorer` CLI currently implements public model/dataset
-listing, metadata lookup, and downloads only; it contains no login or upload
-command. Publishing this artifact to AIS Square therefore requires the
-platform's own authenticated upload interface or API credentials, which are
-not present on this machine. No model was uploaded during this step.
+The referenced `aissq-explorer` CLI implements public model/dataset listing,
+metadata lookup, and downloads only; it contains no login or upload command.
+The model was uploaded through AIS Square's authenticated web API instead.
