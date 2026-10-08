@@ -2,7 +2,10 @@
 
 The phonon and elastic workflows use a DPA3/DeepMD frozen model. The source tree contains no model binary in the review release. The two 10,442,104-byte files observed in the source project (`dpa3.pth` and `frozen_model.pth`) were byte-identical; their MD5 was `2bbbe45eb9c84c77a4de6003dfa3a74f`.
 
-Before public release, publish one frozen inference artifact through the approved aissq model-upload workflow and replace the placeholder below with an immutable URL and SHA-256. Do not publish the full training checkpoint or training dataset in Git.
+The frozen inference artifact is publicly available through AIS Square. The
+artifact URL and SHA-256 below are the immutable reference for phonon and
+elastic inference. Do not publish the full training checkpoint or training
+dataset in Git.
 
 ```text
 artifact_name: dpa3-frozen

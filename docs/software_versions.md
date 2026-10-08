@@ -19,10 +19,10 @@ compatibility must match the execution host.
 
 | Software | Role | Version recorded | Evidence/status |
 | --- | --- | --- | --- |
-| Python | runtime | 3.11 | `data/phonon_retry_2609/run_2609.log` |
-| ASE | atomic structures and calculators | 3.28.0 | `data/phonon_retry_2609/run_2609.log` |
-| DeepMD-kit | DPA3 model inference/training | 3.1.3.dev21+gb98f6c596 | `data/phonon_retry_2609/run_2609.log`; hardware/build specific |
-| Phonopy | phonons and thermal properties | 2.41.1 | `data/phonon_retry_2609/run_2609.log` |
+| Python | runtime | 3.11 | recorded from the source production log; the raw cluster log is not redistributed |
+| ASE | atomic structures and calculators | 3.28.0 | recorded from the source production log; the raw cluster log is not redistributed |
+| DeepMD-kit | DPA3 model inference/training | 3.1.3.dev21+gb98f6c596 | source production log; hardware/build specific |
+| Phonopy | phonons and thermal properties | 2.41.1 | recorded from the source production log; the raw cluster log is not redistributed |
 | Pymatgen | elasticity analysis | version not recorded | record from the production environment before release |
 | SeeK-path | high-symmetry paths | version not recorded | record from the production environment before release |
 | dpdata | DeepMD data conversion | version not recorded | record from the production environment before release |

@@ -60,9 +60,9 @@ Fine-tuning configuration is documented but its launcher is intentionally site-n
 
 ## Models and external software
 
-`models/README.md` records the frozen DPA3 inference model provenance and checksum. The model itself is kept outside Git until the review is complete; later publication can use the aissq artifact workflow. Full checkpoints and training datasets are likewise external.
+`models/README.md` records the frozen DPA3 inference model provenance, public AIS Square artifact and checksum. The binary model remains outside Git; full checkpoints and training datasets are likewise external.
 
-`docs/software_versions.md` lists the versions supported by evidence in the source logs. CP2K is referenced rather than compiled; the manuscript's CP2K version discrepancy is called out there for final confirmation. Multiwfn and VMD/Tachyon are referenced only and are not redistributed. The policy-by-policy audit is in `docs/policy_checklist.md`.
+`docs/software_versions.md` lists the versions supported by evidence in the source logs. CP2K is referenced rather than compiled; the manuscript's CP2K version discrepancy is called out there for final confirmation. Multiwfn and VMD/Tachyon are referenced only and are not redistributed. The policy-by-policy audit is in `docs/policy_checklist.md`, and the exact external inputs needed for MSST/reaction-network reproduction are listed in `docs/msst_release_scope.md`.
 
 The exact public-client capability record is in `docs/aissq-explorer.md`; the authenticated AIS Square upload sequence and artifact record are in `docs/aissquare-upload-api.md`.
 
