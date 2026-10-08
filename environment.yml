@@ -1,0 +1,20 @@
+name: ica-research
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - pyyaml
+  - ase=3.28.0
+  - pymatgen
+  - seekpath
+  - phonopy=2.41.1
+  - dpdata
+  - pillow
+  - gemmi
+  - pip
+  # DeepMD-kit is hardware/build specific; install a compatible release separately.
+  # CP2K, LAMMPS, Multiwfn and VMD are external programs and are not installed here.

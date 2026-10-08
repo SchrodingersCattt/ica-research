@@ -1,0 +1,12 @@
+#!/bin/bash
+#SBATCH -J GMY_cp2k
+#SBATCH -N 2
+#SBATCH -p mars
+
+
+module unload mpi
+#module load mpi/openmpi/5.0.0-gcc-11.4.0-ch4
+module load cp2k/2023.2-gcc-11.4.0-openmpi-5.0.0-ch4
+
+yhrun -n 128 cp2k.psmp -i band.inp -o cp2k.out
+

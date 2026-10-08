@@ -1,0 +1,203 @@
+# Variables
+
+variable        init_temp       equal 300
+variable        npt_step        equal 1000
+variable        msst_step       equal 25000
+variable        velocity        equal 72
+
+variable        rd_seed         equal 66666
+
+variable        temp_damp       equal 0.02 
+variable        pres_damp       equal 0.2 
+variable        t_step          equal 0.0002
+
+variable        thermo_freq     equal 100
+variable        dump_freq       equal 100
+
+units           metal
+boundary        p p p
+atom_style      atomic
+
+neighbor        1.0 bin
+read_data 	    conf.lmp
+
+
+# mass map
+    mass            1 1.008000
+    mass            2 4.003000
+    mass            3 6.940000
+    mass            4 9.012000
+    mass            5 10.810000
+    mass            6 12.011000
+    mass            7 14.007000
+    mass            8 15.999000
+    mass            9 18.998000
+    mass            10 20.180000
+    mass            11 22.990000
+    mass            12 24.305000
+    mass            13 26.982000
+    mass            14 28.085000
+    mass            15 30.974000
+    mass            16 32.060000
+    mass            17 35.450000
+    mass            18 39.948000
+    mass            19 39.098000
+    mass            20 40.078000
+    mass            21 44.956000
+    mass            22 47.867000
+    mass            23 50.942000
+    mass            24 51.996000
+    mass            25 54.938000
+    mass            26 55.845000
+    mass            27 58.933000
+    mass            28 58.693000
+    mass            29 63.546000
+    mass            30 65.380000
+    mass            31 69.723000
+    mass            32 72.630000
+    mass            33 74.922000
+    mass            34 78.971000
+    mass            35 79.904000
+    mass            36 83.798000
+    mass            37 85.468000
+    mass            38 87.620000
+    mass            39 88.906000
+    mass            40 91.224000
+    mass            41 92.906000
+    mass            42 95.950000
+    mass            43 98.000000
+    mass            44 101.070000
+    mass            45 102.906000
+    mass            46 106.420000
+    mass            47 107.868000
+    mass            48 112.414000
+    mass            49 114.818000
+    mass            50 118.710000
+    mass            51 121.760000
+    mass            52 127.600000
+    mass            53 126.904000
+    mass            54 131.293000
+    mass            55 132.905000
+    mass            56 137.327000
+    mass            57 138.905000
+    mass            58 140.116000
+    mass            59 140.908000
+    mass            60 144.242000
+    mass            61 146.000000
+    mass            62 150.360000
+    mass            63 151.964000
+    mass            64 157.250000
+    mass            65 158.925000
+    mass            66 162.500000
+    mass            67 164.930000
+    mass            68 167.259000
+    mass            69 168.934000
+    mass            70 173.055000
+    mass            71 174.967000
+    mass            72 178.490000
+    mass            73 180.948000
+    mass            74 183.840000
+    mass            75 186.207000
+    mass            76 190.230000
+    mass            77 192.217000
+    mass            78 195.085000
+    mass            79 196.967000
+    mass            80 200.592000
+    mass            81 204.383000
+    mass            82 207.200000
+    mass            83 208.980000
+    mass            84 208.982000
+    mass            85 209.987000
+    mass            86 222.018000
+    mass            87 223.000000
+    mass            88 226.025000
+    mass            89 227.028000
+    mass            90 232.038000
+    mass            91 231.036000
+    mass            92 238.029000
+    mass            93 237.048000
+    mass            94 244.000000
+    mass            95 243.000000
+    mass            96 247.000000
+    mass            97 247.000000
+    mass            98 251.000000
+    mass            99 252.000000
+    mass            100 257.000000
+    mass            101 258.000000
+    mass            102 259.000000
+    mass            103 262.000000
+    mass            104 267.000000
+    mass            105 268.000000
+    mass            106 269.000000
+    mass            107 270.000000
+    mass            108 269.000000
+    mass            109 278.000000
+    mass            110 281.000000
+    mass            111 281.000000
+    mass            112 285.000000
+    mass            113 286.000000
+    mass            114 289.000000
+    mass            115 290.000000
+    mass            116 293.000000
+    mass            117 294.000000
+    mass            118 294.000000
+
+    group             H type 1
+    group             C type 6
+    group             N type 7
+    group             O type 8
+    group             Cl type 17
+
+
+
+pair_style      deepmd dpa3.pth
+pair_coeff      * *
+
+
+# Setup initial velocities
+velocity        all create ${init_temp}  ${rd_seed} loop geom
+
+
+# Minimization
+minimize        1.0e-6 1.0e-8 10000 100000
+
+print           "***********  Running NPT in silence. ***********"
+fix             init all npt temp ${init_temp} ${init_temp} ${temp_damp} iso 1 1 ${pres_damp}   
+timestep        ${t_step}
+neighbor        1.0 bin
+neigh_modify    every 2 delay 10 check yes
+run             ${npt_step}
+unfix           init
+reset_timestep  0
+
+# Thermal decomposition in msst
+### velocity units: angstrom/ps = 100 m/s = 0.1 km/s
+### q units: mass^2/distance^4, i.e. (grams/mole)^2 / (angstrom)^4
+
+
+fix             msst all msst y ${velocity} q 100
+
+# variable nbins index 20
+# variable fraction equal 1.0/v_nbins
+# compute cchunk all chunk/atom bin/1d y lower ${fraction} units reduced
+# compute stress all centroid/stress/atom NULL
+# variable press atom -(c_stress[1]+c_stress[2]+c_stress[3]+c_stress[4]+c_stress[5]+c_stress[6])/(3.0*vol*${fraction})
+# compute binpress all reduce/chunk cchunk sum v_press
+# fix avg all ave/time 10 40 400 c_binpress mode vector file ave_stress.txt
+
+variable dhug    equal f_msst[1]
+variable dray    equal f_msst[2]
+variable lgr_vel equal f_msst[3]
+variable lgr_pos equal f_msst[4]
+
+thermo_style    custom step temp epair etotal econserve press ke pe density vol v_dhug v_dray v_lgr_vel v_lgr_pos f_msst
+thermo          ${thermo_freq} #output thermodynamics every N timesteps
+
+timestep        ${t_step}
+neighbor        1.0 bin
+neigh_modify    every 2 delay 10 check yes
+dump            msst all custom ${dump_freq} dump_msst_freq-${dump_freq}.lammpstrj element id type x y z vx vy vz # c_stress[1] c_stress[2] c_stress[3] c_stress[4] c_stress[5] c_stress[6] 
+dump_modify     msst   element H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og
+
+run             ${msst_step}
+

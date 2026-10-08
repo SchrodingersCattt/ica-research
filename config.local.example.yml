@@ -1,0 +1,13 @@
+# Copy to config.local.yml and edit on the execution machine.
+# config.local.yml is ignored and must never be committed.
+model_path: /path/to/frozen_model.pth
+structure_dir: examples/structures
+output_dir: output
+python_executable: python
+cp2k_executable: cp2k.psmp
+lammps_executable: lmp
+vmd_executable: /path/to/vmd
+tachyon_executable: /path/to/tachyon
+training_data_root: /path/to/training-data
+pretrained_model: /path/to/pretrain.pt
+submit_command: ''

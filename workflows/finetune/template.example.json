@@ -1,0 +1,33 @@
+{
+  "model": {
+    "descriptor": {
+      "repflow": {
+        "n_dim": 256,
+        "e_dim": 128,
+        "a_dim": 32,
+        "nlayers": 3
+      }
+    }
+  },
+  "loss": {
+    "start_pref_e": 0.2,
+    "limit_pref_e": 20.0,
+    "start_pref_f": 1000.0,
+    "limit_pref_f": 20.0,
+    "start_pref_v": 0.02,
+    "limit_pref_v": 1.0
+  },
+  "learning_rate": {
+    "start_lr": 0.001,
+    "stop_lr": 0.00001
+  },
+  "training": {
+    "training_data": {
+      "systems": ["/path/to/training-data"],
+      "batch_size": "auto:512"
+    },
+    "validation_data": {
+      "systems": ["/path/to/validation-data"]
+    }
+  }
+}
