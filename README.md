@@ -2,7 +2,7 @@
 
 This review bundle contains the source code and small input/output examples used for the computational parts of the CA-series manuscript. It covers DPA3/DeepMD fine-tuning and inference, finite-displacement phonons, elastic constants, LAMMPS MSST input, and CP2K/NCI post-processing.
 
-This is a local review release (`0.1.0-review`). It has not been pushed to GitHub and does not contain the large external programs themselves. Multiwfn and VMD are cited as external dependencies only.
+This is the `0.1.0-review` bundle published at [SchrodingersCattt/ica-research](https://github.com/SchrodingersCattt/ica-research). It does not contain the large external programs themselves. Multiwfn and VMD are cited as external dependencies only.
 
 ## Quick map
 
@@ -16,7 +16,7 @@ This is a local review release (`0.1.0-review`). It has not been pushed to GitHu
 
 ## System requirements
 
-The recorded production environment was Linux with Python 3.11, CUDA-capable GPUs, and a DeepMD environment. The exact observed Python package versions are in `docs/software_versions.md`. A CPU-only machine can run the plotting and stored-result analysis examples, but the full phonon, elastic, MSST, and fine-tuning workflows require the corresponding external engines and model files.
+The recorded production environment was Linux with Python 3.11, NVIDIA A800-SXM4 80 GB GPUs, NVIDIA driver 535.129.03, and CUDA 12.2. The exact observed Python package versions are in `docs/software_versions.md`. A CPU-only machine can run the plotting and stored-result analysis examples, but the full phonon, elastic, MSST, and fine-tuning workflows require the corresponding external engines and model files.
 
 Do not put cluster paths, credentials, `.aissq/`, or site-specific launcher settings in this directory. Copy `config.local.example.yml` to a local ignored file and fill in paths on the machine where a calculation will run.
 
@@ -24,9 +24,12 @@ Do not put cluster paths, credentials, `.aissq/`, or site-specific launcher sett
 
 For the Python analysis-only examples, a normal desktop installation is expected to take 5–15 minutes. The stored elastic summary smoke test should finish in under one minute. The phonon example is a GPU calculation and can take minutes to hours depending on the supercell and model. Full fine-tuning and MSST runs are cluster jobs and are not run by the smoke test.
 
-Create an environment from `environment.yml` where compatible wheels are available, then run:
+Create an environment from `environment.yml` where compatible wheels are available. Install the recorded hardware-specific DeepMD-kit build separately, then run:
 
 ```bash
+conda env create -f environment.yml
+conda activate ica-research
+# Install a CUDA-compatible DeepMD-kit build matching docs/software_versions.md.
 python -m compileall workflows tools
 python tools/smoke_test.py
 ```
@@ -59,7 +62,7 @@ Fine-tuning configuration is documented but its launcher is intentionally site-n
 
 `models/README.md` records the frozen DPA3 inference model provenance and checksum. The model itself is kept outside Git until the review is complete; later publication can use the aissq artifact workflow. Full checkpoints and training datasets are likewise external.
 
-`docs/software_versions.md` lists the versions supported by evidence in the source logs. CP2K is referenced rather than compiled; the manuscript's CP2K version discrepancy is called out there for final confirmation. Multiwfn and VMD/Tachyon are referenced only and are not redistributed.
+`docs/software_versions.md` lists the versions supported by evidence in the source logs. CP2K is referenced rather than compiled; the manuscript's CP2K version discrepancy is called out there for final confirmation. Multiwfn and VMD/Tachyon are referenced only and are not redistributed. The policy-by-policy audit is in `docs/policy_checklist.md`.
 
 The exact public-client capability record is in `docs/aissq-explorer.md`; the authenticated AIS Square upload sequence and artifact record are in `docs/aissquare-upload-api.md`.
 

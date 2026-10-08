@@ -7,6 +7,9 @@ Python 3.11
 ASE 3.28.0
 DeepMD-kit 3.1.3.dev21+gb98f6c596
 Phonopy 2.41.1
+NVIDIA driver 535.129.03
+CUDA 12.2
+GPU NVIDIA A800-SXM4 80 GB
 ```
 
 These are the versions used for the stored phonon results. The conda file
@@ -16,6 +19,7 @@ compatibility must match the execution host.
 
 | Software | Role | Version recorded | Evidence/status |
 | --- | --- | --- | --- |
+| Python | runtime | 3.11 | `data/phonon_retry_2609/run_2609.log` |
 | ASE | atomic structures and calculators | 3.28.0 | `data/phonon_retry_2609/run_2609.log` |
 | DeepMD-kit | DPA3 model inference/training | 3.1.3.dev21+gb98f6c596 | `data/phonon_retry_2609/run_2609.log`; hardware/build specific |
 | Phonopy | phonons and thermal properties | 2.41.1 | `data/phonon_retry_2609/run_2609.log` |
