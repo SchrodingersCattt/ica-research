@@ -20,7 +20,7 @@ reproducibility.
 | Software license | Pass | `LICENSE` and `THIRD_PARTY_NOTICES.md`. |
 | Open source repository link | Pass | `README.md` links to `SchrodingersCattt/ica-research`. |
 | Detailed functionality / pseudocode | Pass | `docs/pseudocode.md` maps each workflow to the manuscript methods. |
-| Exact MSST trajectory and reaction-network reproduction | Partial | `docs/msst_release_scope.md` records the external `conf.lmp`, model committee, software versions and ReacNetGenerator inputs still required. |
+| Exact MSST trajectory and reaction-network reproduction | Partial | `docs/msst_release_scope.md` records the external production snapshot, model committee, software versions and trajectory still required; `workflows/msst/conf.lmp` and `workflows/msst/run_reacnet.py` provide public starting inputs and wrapper code. |
 
 ## Remaining release gates
 

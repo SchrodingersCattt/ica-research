@@ -33,7 +33,7 @@ This corresponds to the manuscript paragraph beginning “The full second-order 
 1. Build and equilibrate the replicated crystal with LAMMPS and the DeepMD pair style.
 2. Apply the MSST shock along the specified crystallographic direction.
 3. Save thermodynamic quantities and atomic trajectories.
-4. Run ReacNetGenerator externally, with the documented bond-perception and atom-origin rules, and export reaction summaries.
+4. Run `workflows/msst/run_reacnet.py` with an independently installed ReacNetGenerator, using the documented bond-perception and atom-origin rules, and export reaction summaries.
 
 ## DFT/NCI
 

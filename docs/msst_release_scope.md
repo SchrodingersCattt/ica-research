@@ -1,9 +1,11 @@
 # MSST release scope
 
-`workflows/msst/in.lmp` is the sanitized LAMMPS/MSST input distributed with
-this review bundle. It is an inspectable starting point, not a self-contained
-job: it expects a user-supplied LAMMPS data file (`conf.lmp`), a compatible
-DeepMD model, and a LAMMPS build with the MSST and DeepMD pair styles.
+`workflows/msst/in.lmp` and `workflows/msst/conf.lmp` are the sanitized
+LAMMPS/MSST input and a public 4 × 3 × 3 starting configuration distributed
+with this review bundle. The configuration is generated from
+`examples/structures/NEt4-CA.cif`; it is not the private post-NPT production
+snapshot. A run still requires a compatible DeepMD model and a LAMMPS build
+with the MSST and DeepMD pair styles.
 
 The template preserves the released review input, but its single-model and
 time-integration settings should not be read as the final manuscript run
@@ -20,7 +22,8 @@ DPA3 model used for phonon and elastic inference. The manuscript's MSST methods
 describe a committee of compressed `se_atten_v2` models; those private or
 cluster-specific model files are not included in this Git repository.
 
-Reaction-network analysis is described in `docs/pseudocode.md` and requires an
+Reaction-network analysis is described in `docs/pseudocode.md` and the
+path-sanitized wrapper is `workflows/msst/run_reacnet.py`. It requires an
 independently installed ReacNetGenerator with the bond-perception and atom
 origin rules stated in the manuscript. The release does not include raw MSST
 trajectories or a ReacNetGenerator executable.
